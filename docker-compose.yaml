@@ -16,7 +16,7 @@ services:
     container_name: zeebe
     ports:
       - "26500:26500"
-      - "9600:9600"
+      - "6600:9600"
       - "8088:8080"
     environment: # https://docs.camunda.io/docs/self-managed/zeebe-deployment/configuration/environment-variables/
       - ZEEBE_BROKER_GATEWAY_SECURITY_AUTHENTICATION_MODE=${ZEEBE_AUTHENTICATION_MODE}
@@ -44,7 +44,7 @@ services:
         required: true
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "timeout 10s bash -c ':> /dev/tcp/127.0.0.1/9600' || exit 1"]
+      test: ["CMD-SHELL", "timeout 10s bash -c ':> /dev/tcp/127.0.0.1/6600' || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 5
@@ -89,7 +89,7 @@ services:
       - management.endpoint.health.probes.enabled=true
       - ZEEBE_CLIENT_CONFIG_PATH=/tmp/zeebe_auth_cache
     healthcheck:
-      test: ["CMD-SHELL", "wget -O - -q 'http://localhost:9600/actuator/health/readiness'"]
+      test: ["CMD-SHELL", "wget -O - -q 'http://localhost:6600/actuator/health/readiness'"]
       interval: 30s
       timeout: 1s
       retries: 5
@@ -139,7 +139,7 @@ services:
       - path: .env
         required: true
     healthcheck:
-      test: ["CMD-SHELL", "wget -O - -q 'http://localhost:9600/actuator/health/readiness'"]
+      test: ["CMD-SHELL", "wget -O - -q 'http://localhost:6600/actuator/health/readiness'"]
       interval: 30s
       timeout: 1s
       retries: 5
@@ -354,7 +354,7 @@ services:
     container_name: elasticsearch
     ports:
       - "9200:9200"
-      - "9300:9300"
+      - "6300:9300"
     environment:
       - bootstrap.memory_lock=true
       - discovery.type=single-node
