@@ -55,6 +55,7 @@ services:
       - CAMUNDA_DATABASE_URL=http://elasticsearch:9200
       - management.endpoints.web.exposure.include=health
       - management.endpoint.health.probes.enabled=true
+      - CAMUNDA_OPERATE_AUTH_ENABLED=false
     healthcheck:
       test: [ "CMD-SHELL", "wget -O - -q 'http://localhost:9600/actuator/health/readiness'" ]
       interval: 30s
@@ -81,6 +82,7 @@ services:
       - CAMUNDA_DATABASE_URL=http://elasticsearch:9200
       - management.endpoints.web.exposure.include=health
       - management.endpoint.health.probes.enabled=true
+      - CAMUNDA_TASKLIST_AUTH_ENABLED=false
     healthcheck:
       test: [ "CMD-SHELL", "wget -O - -q 'http://localhost:9600/actuator/health/readiness'" ]
       interval: 30s
